@@ -22,11 +22,12 @@ async def deploy(details: BotDetails, background_tasks: BackgroundTasks):
     background_tasks.add_task(deploy_bot, details)
     return {"message": "Deployment started"}
 
-@app.websocket("/ws/logs/{bot_id}")
-async def websocket_logs(websocket: WebSocket, bot_id: str):
-    await manager.connect(websocket, bot_id)
-    try:
-        while True:
-            await websocket.receive_text()
-    except Exception:
-        await manager.disconnect(websocket)
+
+@app.post("/stop/{bot_id}")
+async def stop_bot(bot_id: str):
+    bot = await bots.find_one({"_id": bot_id})
+    if bot:
+        os.kill(bot["pid"], signal.SIGTERM)
+        await update_bot_status(bot_id, "stopped")
+        return {"message": "Bot stopped"}
+    return {"error": "Bot not found"}
