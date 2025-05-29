@@ -1,5 +1,5 @@
 import os, asyncio, subprocess, uuid
-from bot_registry import save_bot, update_bot_status
+from backend.bot_registry import save_bot, update_bot_status
 from backend.websocket_manager import manager
 
 async def deploy_bot(details):
