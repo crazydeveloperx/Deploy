@@ -1,6 +1,6 @@
 import os, asyncio, subprocess, uuid
 from bot_registry import save_bot, update_bot_status
-from websocket_manager import manager
+from backend.websocket_manager import manager
 
 async def deploy_bot(details):
     bot_id = str(uuid.uuid4())
