@@ -1,8 +1,8 @@
 from fastapi import FastAPI, WebSocket, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from deploy_manager import deploy_bot
-from websocket_manager import manager
+from backend.deploy_manager import deploy_bot
+from backend.websocket_manager import manager
 from dotenv import load_dotenv
 
 load_dotenv()
